@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <data>
+
+        <import type="com.example.hoangtruc.weatherapp.utils.FuncionUtils" />
+
+        <import type="com.example.hoangtruc.weatherapp.utils.FontStyle" />
+
+        <variable
+            name="mainActivity"
+            type="com.example.hoangtruc.weatherapp.MainActivity" />
+
+        <variable
+            name="curWeatherViewModel"
+            type="com.example.hoangtruc.weatherapp.viewmodels.CurWeatherViewModel" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/weatherbackgroundsecond"
+        android:clipChildren="false"
+        android:elevation="30dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:weightSum="1"
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/image_Background"
+            android:layout_width="0dp"
+            android:layout_height="231dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.077" />
+
+
+        <ImageView
+            loadImage="@{curWeatherViewModel.mWeather.weather.get(0).icon}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:elevation="0dp"
+            android:scaleType="fitCenter"
+
+            app:layout_constraintBottom_toBottomOf="@id/image_Background"
+            app:layout_constraintHorizontal_bias="0.927"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_Background"
+            app:layout_constraintVertical_bias="0.254" />
+        <!--android:id="@+id/Weather_type-->
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            makeMove="@{true}"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="@{curWeatherViewModel.mWeather.weather.get(0).description}"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.924"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.423"
+
+            />
+
+        <TextView
+            android:id="@+id/textView8"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+
+            android:text="@{curWeatherViewModel.mWeather.name}"
+            android:textColor="@android:color/white"
+
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.392"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.008" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{curWeatherViewModel.mWeather.sys.country}"
+
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.008" />
+
+        <TextView
+            android:id="@+id/temperature"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="90dp"
+            android:layout_height="96dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="@{String.valueOf(curWeatherViewModel.mWeather.main.temp)}"
+
+            android:textColor="@android:color/white"
+            android:textSize="70sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.138" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+
+            android:text="o"
+            android:textColor="@android:color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.626"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.12" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C"
+            android:textColor="@android:color/white"
+            android:textSize="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.684"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.146" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{FuncionUtils.formatTime(curWeatherViewModel.mWeather.dt)}"
+
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.128"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.442" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            makeMove="@{true}"
+            android:layout_width="99dp"
+            android:layout_height="21dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="@{FuncionUtils.formatDate(curWeatherViewModel.mWeather.dt)}"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.074"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.303" />
+
+        <TextView
+            android:id="@+id/txtHigh"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="High: "
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.252"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.732" />
+
+        <TextView
+            android:id="@+id/txthigh2"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="14dp"
+            android:text="@{String.valueOf(curWeatherViewModel.mWeather.main.tempMax)}"
+
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.117"
+            app:layout_constraintLeft_toLeftOf="@+id/txtHigh"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.729" />
+
+        <TextView
+            android:id="@+id/textView2"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="20dp"
+            android:text="o"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintLeft_toLeftOf="@+id/txthigh2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txthigh2"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.705" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="11dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+
+            android:text="C"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintLeft_toLeftOf="@+id/txthigh2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.732" />
+
+        <TextView
+            android:id="@+id/txtLow"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+
+            android:layout_marginLeft="108dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="108dp"
+            android:text="Low:"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.287"
+            app:layout_constraintLeft_toLeftOf="@id/txtHigh"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtHigh"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.729" />
+
+        <TextView
+            android:id="@+id/txtLow2"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="12dp"
+            android:text="@{String.valueOf(curWeatherViewModel.mWeather.main.tempMin)}"
+
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.17"
+            app:layout_constraintLeft_toLeftOf="@+id/txtLow"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.729" />
+
+        <TextView
+            android:id="@+id/textView3"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="164dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="164dp"
+            android:text="o"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintLeft_toLeftOf="@+id/txtHigh"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtHigh"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.705" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="11dp"
+            android:layout_height="21dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:text="C"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintLeft_toLeftOf="@+id/txtLow2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.732" />
+
+        <TextView
+            android:id="@+id/textView7"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Wind :"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.395"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.833" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{FuncionUtils.setWind(curWeatherViewModel.mWeather.wind.speed)}"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/image_Background"
+            app:layout_constraintEnd_toEndOf="@+id/image_Background"
+            app:layout_constraintHorizontal_bias="0.056"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.844" />
+
+        <ImageView
+            android:id="@+id/background2"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="match_parent"
+            android:layout_height="111dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_Background"
+            app:layout_constraintVertical_bias="0.501" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:lottie_fileName="weatheranim.json"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.083"
+            app:layout_constraintLeft_toLeftOf="@+id/background2"
+            app:layout_constraintRight_toRightOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.268"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <TextView
+
+
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Humadity"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.419"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Pressure"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.406"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.46" />
+
+
+        <TextView
+            android:id="@+id/Humadity"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(curWeatherViewModel.mWeather.main.humidity)}"
+
+            android:textColor="@android:color/white"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.716"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.064" />
+
+
+        <TextView
+            android:id="@+id/Due"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{String.valueOf(curWeatherViewModel.mWeather.main.pressure)}"
+            android:textColor="@android:color/white"
+
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.841"
+            app:layout_constraintLeft_toLeftOf="@+id/background2"
+            app:layout_constraintRight_toRightOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.416" />
+
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="%"
+            android:textColor="@android:color/white"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.76"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.075" />
+
+        <TextView
+            android:id="@+id/textView5"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="SunRise"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.399"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.642" />
+
+        <TextView
+            android:id="@+id/SunRise"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{FuncionUtils.formatTime(curWeatherViewModel.mWeather.sys.sunrise)}"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.805"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.642" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="SunSet"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.39"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.869" />
+
+        <TextView
+            android:id="@+id/SunSet"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@{FuncionUtils.formatTime(curWeatherViewModel.mWeather.sys.sunset)}"
+
+            android:textColor="@android:color/white"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.805"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.948" />
+
+        <TextView
+            android:id="@+id/textView"
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Visibility"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.408"
+            app:layout_constraintLeft_toLeftOf="@+id/background2"
+            app:layout_constraintRight_toRightOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.271" />
+
+        <TextView
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="@{FuncionUtils.convertKilometers(curWeatherViewModel.mWeather.visibility)}"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/background2"
+            app:layout_constraintEnd_toEndOf="@+id/background2"
+            app:layout_constraintHorizontal_bias="0.841"
+            app:layout_constraintLeft_toLeftOf="@+id/background2"
+            app:layout_constraintRight_toRightOf="@+id/background2"
+            app:layout_constraintStart_toStartOf="@+id/background2"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.268" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            adapter="@{curWeatherViewModel.mWeatherAdapter}"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/background2"
+            app:layout_constraintVertical_bias="0.45" />
+
+        <Button
+            font="@{FontStyle.ROBOTO_MLIGHT}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background"
+            android:onClick="@{(v)->mainActivity.onClickSearch()}"
+            android:text="Search "
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.869" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_splash"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            android:elevation="2dp"
+            setSplash="@{true}"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="92dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.285"
+            app:lottie_fileName="weathersplash.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:elevation="3dp"
+            setSplash="@{true}"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
